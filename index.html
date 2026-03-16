@@ -1,3 +1,5 @@
+
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -132,22 +134,17 @@
                         
                         <div class="mb-4">
                             <p class="text-gray-700 font-medium mb-2">Plazo (Meses):</p>
-                            <div class="flex flex-wrap gap-2 items-center">
-                                <label class="flex items-center space-x-2 bg-white border border-emerald-500 rounded-lg p-2 cursor-pointer transition duration-150 hover:bg-emerald-50">
-                                    <input type="radio" name="term" value="12" class="term-radio text-emerald-600 focus:ring-emerald-500">
-                                    <span class="text-sm font-medium">12</span>
-                                </label>
-                                <label class="flex items-center space-x-2 bg-white border border-emerald-500 rounded-lg p-2 cursor-pointer transition duration-150 hover:bg-emerald-50">
-                                    <input type="radio" name="term" value="18" class="term-radio text-emerald-600 focus:ring-emerald-500">
-                                    <span class="text-sm font-medium">18</span>
-                                </label>
-                                <label class="flex items-center space-x-2 bg-white border border-emerald-500 rounded-lg p-2 cursor-pointer transition duration-150 hover:bg-emerald-50">
-                                    <input type="radio" name="term" value="24" class="term-radio text-emerald-600 focus:ring-emerald-500" checked>
-                                    <span class="text-sm font-medium">24</span>
-                                </label>
-                                <label class="flex items-center space-x-2 bg-white border border-emerald-500 rounded-lg p-2 cursor-pointer transition duration-150 hover:bg-emerald-50">
-                                    <input type="radio" name="term" value="31" class="term-radio text-emerald-600 focus:ring-emerald-500">
-                                    <span class="text-sm font-medium">31</span> 
+                            <div class="mb-4">
+    <p class="text-gray-700 font-medium mb-2 font-bold">Plazo (Meses):</p>
+    <div id="term-options-container" class="grid grid-cols-2 gap-2 mb-3">
+        <p class="text-xs text-gray-400">Seleccione productos para ver cuotas...</p>
+    </div>
+    
+    <div class="flex items-center space-x-2 border-t pt-2">
+        <span class="text-xs text-gray-500 font-semibold">Otros (Meses):</span>
+        <input type="number" id="custom-term" min="1" max="120" placeholder="Ej: 15" class="w-20 p-1 border border-emerald-300 rounded-lg text-sm text-center focus:ring-emerald-500">
+    </div>
+</div> 
                                 </label>
                                 <div class="flex items-center space-x-1">
                                     <span class="text-xs text-gray-500">Otros:</span>
@@ -211,7 +208,8 @@
         { sku: 'SP0470', name: 'Aro 38 cm. y ventana Innove', price: 3000, category: 'Accesorios Innove' },
         { sku: 'SP0488', name: 'Aros para tapas Altas Innove', price: 2000, category: 'Accesorios Innove' },
         { sku: 'CO9245', name: 'Sistema de Cocina Complem. de 5 Pzs Innove', price: 111000, category: 'Sistemas de Cocina Innove' },
-        { sku: 'CO9247', name: 'Sistema de Cocina Complem. de 5 Pzs Innove + Perfect Pop', price: 119200, category: 'Sistemas de Cocina Innove' },
+        { sku: 'CO9247', name: 'Sistema de Cocina Complem. de 5 Pzs Innove + Perfect Pop s. tapa', price: 119200, category: 'Sistemas de Cocina Innove' },
+	{ sku: 'CO9247', name: 'Sistema de Cocina Complem. de 5 Pzs Innove + Perfect Pop', price: 133700, category: 'Sistemas de Cocina Innove' },
         { sku: 'CO9253', name: 'Sistema de Cocina Clasico de 7 Pzs Innove', price: 137500, category: 'Sistemas de Cocina Innove' },
         { sku: 'CO9254', name: 'Sistema de Cocina Especial de 8 Pzs Innove', price: 168500, category: 'Sistemas de Cocina Innove' },
         { sku: 'CO9261', name: 'Sistema de Cocina Familiar de 10 Pzs Innove + Perfect Pop', price: 215000, category: 'Sistemas de Cocina Innove' },
@@ -248,10 +246,24 @@
         { sku: 'JU0026', name: 'Extractor de Jugos de Royal Prestige', price: 115000, category: 'Extractor de Jugos' },
         { sku: 'AP2101', name: 'Purificador de Aire Earth+ C/Cable', price: 90000, category: 'Filtracion y Purificacion' },
         { sku: 'PR2134G', name: 'Kit Completo Barista RT (REGALO)', price: '5000', category: 'Regalo' },
-        { sku: 'SP0136G', name: 'Juego de 2 Tazas 16 oz. con Pared Doble (REGALO)', price: '5000', category: 'Regalo' },
-        { sku: 'PR0196G', name: 'Juego de Utensilios de Cocina - 6 Pzas (REGALO)', price: '10700', category: 'Regalo' }
-    ];
-    
+         { sku: 'PR2134G', name: 'Kit Completo Barista RT (REGALO)', price: 5000, category: 'Regalo' },
+{ sku: 'N/A', name: 'Kit Baristart (REGALO)', price: 5000, category: 'Regalo' },
+{ sku: 'PR0552', name: 'Tabla Bambú Pequeña (REGALO)', price: 6500, category: 'Regalo' },
+{ sku: 'N/A', name: 'Cuchillo Multiuso (REGALO)', price: 6700, category: 'Regalo' },
+{ sku: 'CO9242', name: 'Perfect Pop (REGALO)', price: 8000, category: 'Regalo' },
+{ sku: 'N/A', name: 'Hacha de Cocina (REGALO)', price: 8000, category: 'Regalo' },
+{ sku: 'PR0551', name: 'Tabla Bambú Grande (REGALO)', price: 8200, category: 'Regalo' },
+{ sku: 'N/A', name: 'Hervidor 1/2 QT / 0.47 Lts (REGALO)', price: 8500, category: 'Regalo' },
+{ sku: 'N/A', name: 'Cubiertos Americana 24 Pzs (REGALO)', price: 9000, category: 'Regalo' },
+{ sku: 'N/A', name: 'Hervidor 1 QT / 0.94 Lts (REGALO)', price: 9500, category: 'Regalo' },
+{ sku: 'PR0196G', name: 'Juego de Utensilios - 6 Pzas (REGALO)', price: 10700, category: 'Regalo' },
+{ sku: 'PR2120', name: 'Cafetera Espresso 4 Tzs (REGALO)', price: 14000, category: 'Regalo' },
+{ sku: 'N/A', name: 'Cacerola Royal Prestige (REGALO)', price: 14000, category: 'Regalo' },
+{ sku: 'N/A', name: 'Juego 4 Tazones Mezcladores (REGALO)', price: 14500, category: 'Regalo' },
+{ sku: 'N/A', name: 'Colador Pequeño 20 cm (REGALO)', price: 14800, category: 'Regalo' },
+{ sku: 'N/A', name: 'Colador Grande 26 cm (REGALO)', price: 16800, category: 'Regalo' },
+{ sku: 'PR2129', name: 'Cafetera Espresso 10 Tzs Doble Pared (REGALO)', price: 17000, category: 'Regalo' },];
+   
     // ... (El resto del codigo JavaScript se mantiene igual que la version anterior)
     const productList = document.getElementById('product-list');
     const quoteItemsDisplay = document.getElementById('quote-items');
@@ -401,34 +413,49 @@
         quote.discountPercentage = parseFloat(discountPercentageInput.value) || 0;
         quote.interestRate = parseFloat(interestRateInput.value) || 0;
         quote.initialPayment = parseFloat(initialPaymentInput.value) || 0;
-        
-        if (customTermInput.value && customTermInput.value > 0) {
-            quote.termMonths = parseInt(customTermInput.value);
-            document.querySelectorAll('.term-radio').forEach(r => r.checked = false);
-        } else {
-            const selectedRadio = document.querySelector('input[name="term"]:checked');
-            quote.termMonths = selectedRadio ? parseInt(selectedRadio.value) : 24;
-        }
 
         const subtotalItems = quote.items.filter(item => item.product.category !== 'Regalo');
         const subtotal = subtotalItems.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0);
         const discountAmount = subtotal * (quote.discountPercentage / 100);
         const total = subtotal - discountAmount;
-
-        const giftItems = quote.items.filter(item => item.product.category === 'Regalo');
-        const totalGiftValue = giftItems.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0);
-        const maxGiftValue = total * GIFT_LIMIT_PERCENTAGE;
-
-        giftTotalDisplay.textContent = formatter.format(totalGiftValue);
-        giftMaxDisplay.textContent = formatter.format(maxGiftValue);
-
         const amountFinanced = Math.max(0, total - quote.initialPayment);
         const rateMonthly = (quote.interestRate / 100) / 12;
-        const n = quote.termMonths;
 
+        // --- GENERADOR DE BOTONES AUTOMÁTICOS ---
+        const standardTerms = [12, 18, 24, 31];
+        const container = document.getElementById('term-options-container');
+        container.innerHTML = ''; 
+
+        standardTerms.forEach(n => {
+            let cuotaSug = 0;
+            if (amountFinanced > 0 && rateMonthly > 0) {
+                cuotaSug = amountFinanced * (rateMonthly * Math.pow((1 + rateMonthly), n)) / (Math.pow((1 + rateMonthly), n) - 1);
+            }
+
+            const isSelected = (!customTermInput.value || customTermInput.value == 0) && quote.termMonths === n;
+            const card = document.createElement('div');
+            card.className = `flex flex-col p-2 border rounded-lg cursor-pointer transition ${isSelected ? 'border-emerald-600 bg-emerald-100 ring-2 ring-emerald-500' : 'border-gray-200 bg-white'}`;
+            
+            card.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <input type="radio" name="term" value="${n}" ${isSelected ? 'checked' : ''} class="text-emerald-600">
+                    <span class="text-sm font-bold text-gray-800">${n} Meses</span>
+                </div>
+                <span class="text-xs text-emerald-700 font-bold mt-1">${formatter.format(cuotaSug)}</span>
+            `;
+
+            card.onclick = () => {
+                customTermInput.value = ''; 
+                quote.termMonths = n;
+                calculateQuote();
+            };
+            container.appendChild(card);
+        });
+
+        let finalTerm = (customTermInput.value && parseInt(customTermInput.value) > 0) ? parseInt(customTermInput.value) : quote.termMonths;
         let monthlyPayment = 0;
         if (amountFinanced > 0 && rateMonthly > 0) {
-            monthlyPayment = amountFinanced * (rateMonthly * Math.pow((1 + rateMonthly), n)) / (Math.pow((1 + rateMonthly), n) - 1);
+            monthlyPayment = amountFinanced * (rateMonthly * Math.pow((1 + rateMonthly), finalTerm)) / (Math.pow((1 + rateMonthly), finalTerm) - 1);
         }
 
         subtotalDisplay.textContent = formatter.format(subtotal);
@@ -437,8 +464,12 @@
         totalDisplay.dataset.value = total.toFixed(2);
         amountFinancedDisplay.textContent = formatter.format(amountFinanced);
         monthlyPaymentDisplay.textContent = formatter.format(monthlyPayment);
-    }
 
+        const giftItems = quote.items.filter(item => item.product.category === 'Regalo');
+        const totalGiftValue = giftItems.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0);
+        giftTotalDisplay.textContent = formatter.format(totalGiftValue);
+        giftMaxDisplay.textContent = formatter.format(total * 0.10);
+    }
     document.addEventListener('DOMContentLoaded', () => {
         populateCategoryFilter();
         renderProductList();
