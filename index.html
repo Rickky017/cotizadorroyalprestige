@@ -140,12 +140,8 @@
         <p class="text-xs text-gray-400">Seleccione productos para ver cuotas...</p>
     </div>
     
-    <div class="flex items-center space-x-2 border-t pt-2">
-        <span class="text-xs text-gray-500 font-semibold">Otros (Meses):</span>
-        <input type="number" id="custom-term" min="1" max="120" placeholder="Ej: 15" class="w-20 p-1 border border-emerald-300 rounded-lg text-sm text-center focus:ring-emerald-500">
-    </div>
-</div> 
-                                </label>
+    
+                                
                                 <div class="flex items-center space-x-1">
                                     <span class="text-xs text-gray-500">Otros:</span>
                                     <input type="number" id="custom-term" min="1" max="120" placeholder="Meses" class="w-16 p-1 border border-emerald-300 rounded-lg text-sm text-center focus:ring-emerald-500 focus:border-emerald-500">
@@ -209,7 +205,7 @@
         { sku: 'SP0488', name: 'Aros para tapas Altas Innove', price: 2000, category: 'Accesorios Innove' },
         { sku: 'CO9245', name: 'Sistema de Cocina Complem. de 5 Pzs Innove', price: 111000, category: 'Sistemas de Cocina Innove' },
         { sku: 'CO9247', name: 'Sistema de Cocina Complem. de 5 Pzs Innove + Perfect Pop s. tapa', price: 119200, category: 'Sistemas de Cocina Innove' },
-	{ sku: 'CO9247', name: 'Sistema de Cocina Complem. de 5 Pzs Innove + Perfect Pop', price: 133700, category: 'Sistemas de Cocina Innove' },
+	{ sku: 'Kit001', name: 'Sistema de Cocina Complem. de 5 Pzs Innove + Perfect Pop', price: 133700, category: 'Sistemas de Cocina Innove' },
         { sku: 'CO9253', name: 'Sistema de Cocina Clasico de 7 Pzs Innove', price: 137500, category: 'Sistemas de Cocina Innove' },
         { sku: 'CO9254', name: 'Sistema de Cocina Especial de 8 Pzs Innove', price: 168500, category: 'Sistemas de Cocina Innove' },
         { sku: 'CO9261', name: 'Sistema de Cocina Familiar de 10 Pzs Innove + Perfect Pop', price: 215000, category: 'Sistemas de Cocina Innove' },
@@ -487,6 +483,49 @@
         clearQuoteButton.addEventListener('click', clearQuote);
         calculateQuote();
     });
+
+// --- LÓGICA DE ENVÍO POR WHATSAPP ---
+document.getElementById('send-whatsapp-button').addEventListener('click', () => {
+    const cliente = document.getElementById('client-name').value || "Cliente";
+    const telefono = document.getElementById('client-whatsapp').value.replace(/\D/g, ''); // Limpia caracteres no numéricos
+    
+    if (quote.items.length === 0) {
+        alert("Por favor, añade productos a la cotización primero.");
+        return;
+    }
+
+    if (!telefono) {
+        alert("Por favor, introduce un número de WhatsApp.");
+        return;
+    }
+
+    // Construcción del mensaje
+    let mensaje = `*COTIZACIÓN ROYAL PRESTIGE - WEYMAX SRL*%0A`;
+    mensaje += `*Cliente:* ${cliente}%0A`;
+    mensaje += `--------------------------%0A`;
+    
+    quote.items.forEach(item => {
+        const precio = parseFloat(item.product.price);
+        mensaje += `• ${item.product.name} (x${item.quantity}) - ${formatter.format(precio * item.quantity)}%0A`;
+    });
+
+    const total = parseFloat(totalDisplay.dataset.value);
+    const inicial = parseFloat(initialPaymentInput.value) || 0;
+    const financiado = parseFloat(amountFinancedDisplay.textContent.replace(/[^0-9.-]+/g,""));
+    const cuota = monthlyPaymentDisplay.textContent;
+    const plazo = (customTermInput.value && parseInt(customTermInput.value) > 0) ? customTermInput.value : quote.termMonths;
+
+    mensaje += `--------------------------%0A`;
+    mensaje += `*Total a Invertir:* ${formatter.format(total)}%0A`;
+    mensaje += `*Pago Inicial:* ${formatter.format(inicial)}%0A`;
+    mensaje += `*Monto Financiado:* ${formatter.format(financiado)}%0A`;
+    mensaje += `*Cuotas:* ${plazo} pagos de ${cuota}%0A%0A`;
+    mensaje += `_Precios sujetos a cambios. Válido por 15 días._`;
+
+    // Abrir WhatsApp
+    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+    window.open(url, '_blank');
+});
 </script>
 </body>
 </html>
