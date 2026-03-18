@@ -2,16 +2,42 @@
 
 <html lang="es">
 <head>
-    <link rel="manifest" href="./manifest.json">
-
-    <meta name="theme-color" content="#059669">
-
-    <link rel="apple-touch-icon" href="TU_URL_RAW_DE_GITHUB_GIST.jpg">
-
-    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://gist.githubusercontent.com/Rickky017/ee002048ba89eda0d949e2393c7f28aa/raw/icon-512x512.jpg">
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador, Corporativo Silwey, </title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* ... tus estilos CSS ... */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background-color: #059669; 
+            border-radius: 3px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background-color: #e5e7eb; 
+        }
+
+        .product-card-selected {
+            border: 2px solid #059669 !important;
+            background-color: #ecfdf5 !important;
+            transform: scale(1.01);
+        }
+
+        @media (max-width: 767px) {
+            #quote-summary {
+                position: sticky;
+                bottom: 0;
+                z-index: 20;
+                padding: 0.75rem;
+                border-top: 1px solid #d1d5db; 
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
