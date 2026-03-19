@@ -340,9 +340,10 @@
     const initialPaymentWarning = document.getElementById('initial-payment-warning');
     const customTermInput = document.getElementById('custom-term');
 
-    function renderProductList(searchTerm = '', category = '') {
+   function renderProductList(searchTerm = '', category = '') {
         productList.innerHTML = '';
         const searchLower = searchTerm.toLowerCase().trim();
+        
         const filteredProducts = productCatalog.filter(product => {
             const matchesSearch = product.name.toLowerCase().includes(searchLower) || product.sku.toLowerCase().includes(searchLower);
             const matchesCategory = category === '' || product.category === category;
@@ -353,12 +354,15 @@
             const isGift = product.category === 'Regalo';
             const priceValue = parseFloat(product.price) || 0;
             
-            // --- ESTA ES LA LÍNEA QUE FALTABA PARA EL RESALTADO ---
+            // Verificamos si el producto ya está en la cotización para resaltar el cuadro completo
             const isSelected = quote.items.some(item => item.product.sku === product.sku);
 
             const productCard = document.createElement('div');
-            // Aquí aplicamos la clase 'product-card-selected' si el producto está seleccionado
-            productCard.className = `flex items-center justify-between p-3 rounded-lg border shadow-sm hover:shadow-md transition duration-200 ${isGift ? 'bg-yellow-100 border-yellow-300' : 'bg-gray-50 border-gray-200'} ${isSelected ? 'product-card-selected' : ''}`;
+            
+            // Aplicamos la clase de resaltado al cuadro completo si isSelected es verdadero
+            productCard.className = `flex items-center justify-between p-3 rounded-lg border shadow-sm hover:shadow-md transition duration-200 
+                ${isGift ? 'bg-yellow-50 border-yellow-200' : 'bg-gray-50 border-gray-200'} 
+                ${isSelected ? 'product-card-selected' : ''}`;
             
             productCard.innerHTML = `
                 <div class="flex flex-col">
@@ -367,7 +371,7 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-lg font-bold ${isGift ? 'text-yellow-800' : 'text-emerald-600'}">${formatter.format(priceValue)}</span>
-                    <button data-sku="${product.sku}" class="add-to-quote-btn bg-emerald-500 text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-emerald-600 transition duration-150 shadow-md">
+                    <button data-sku="${product.sku}" class="add-to-quote-btn ${isSelected ? 'bg-emerald-700' : 'bg-emerald-500'} text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-emerald-600 transition duration-150 shadow-md">
                         ${isSelected ? 'Añadido' : 'Añadir'}
                     </button>
                 </div>
