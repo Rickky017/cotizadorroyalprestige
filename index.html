@@ -519,16 +519,17 @@
         amountFinancedDisplay.textContent = formatter.format(amountFinanced);
         monthlyPaymentDisplay.textContent = formatter.format(monthlyPayment);
 
-        const giftItems = quote.items.filter(item => item.product.category === 'Regalo');
+        // Actualizar indicadores de regalos
         const totalGiftValue = giftItems.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0);
         giftTotalDisplay.textContent = formatter.format(totalGiftValue);
         giftMaxDisplay.textContent = formatter.format(total * 0.10);
-    }
-   </script>
-    // --- CIERRE DE LÓGICA DE INICIALIZACIÓN ---
+    } // <--- Aquí faltaba cerrar la función calculateQuote
+
+    // --- INICIALIZACIÓN Y EVENTOS ---
     document.addEventListener('DOMContentLoaded', () => {
         populateCategoryFilter();
         renderProductList();
+        
         searchInput.addEventListener('input', () => renderProductList(searchInput.value, categoryFilter.value));
         categoryFilter.addEventListener('change', () => renderProductList(searchInput.value, categoryFilter.value));
         discountPercentageInput.addEventListener('input', calculateQuote);
