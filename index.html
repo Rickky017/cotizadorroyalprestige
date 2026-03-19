@@ -520,10 +520,11 @@
         monthlyPaymentDisplay.textContent = formatter.format(monthlyPayment);
 
         // Actualizar indicadores de regalos
+        const giftItems = quote.items.filter(item => item.product.category === 'Regalo');
         const totalGiftValue = giftItems.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0);
         giftTotalDisplay.textContent = formatter.format(totalGiftValue);
         giftMaxDisplay.textContent = formatter.format(total * 0.10);
-    } // <--- Aquí faltaba cerrar la función calculateQuote
+    } 
 
     // --- INICIALIZACIÓN Y EVENTOS ---
     document.addEventListener('DOMContentLoaded', () => {
@@ -593,6 +594,5 @@
         .catch(err => console.log("Error en SW:", err));
     }
 </script>
-
 </body>
 </html>
