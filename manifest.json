@@ -1,20 +1,17 @@
 {
-  "name": "Cotizador Silwey PRO",
-  "short_name": "Cotizador",
-  "start_url": "./index.html",
+  "name": "Cotizador Silwey",
+  "short_name": "Silwey",
+  "description": "Herramienta de cotización de Royal Prestige",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f7f9fb",
   "theme_color": "#059669",
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3081/3081648.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
