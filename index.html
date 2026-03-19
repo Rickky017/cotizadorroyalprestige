@@ -543,9 +543,11 @@
     });
 
 // --- LÓGICA DE ENVÍO POR WHATSAPP ---
+<script>
+// --- LÓGICA DE ENVÍO POR WHATSAPP ---
 document.getElementById('send-whatsapp-button').addEventListener('click', () => {
     const cliente = document.getElementById('client-name').value || "Cliente";
-    const telefono = document.getElementById('client-whatsapp').value.replace(/\D/g, ''); // Limpia caracteres no numéricos
+    const telefono = document.getElementById('client-whatsapp').value.replace(/\D/g, ''); 
     
     if (quote.items.length === 0) {
         alert("Por favor, añade productos a la cotización primero.");
@@ -557,7 +559,6 @@ document.getElementById('send-whatsapp-button').addEventListener('click', () => 
         return;
     }
 
-    // Construcción del mensaje
     let mensaje = `*COTIZACIÓN ROYAL PRESTIGE - WEYMAX SRL*%0A`;
     mensaje += `*Cliente:* ${cliente}%0A`;
     mensaje += `--------------------------%0A`;
@@ -580,12 +581,13 @@ document.getElementById('send-whatsapp-button').addEventListener('click', () => 
     mensaje += `*Cuotas:* ${plazo} pagos de ${cuota}%0A%0A`;
     mensaje += `_Precios sujetos a cambios. Válido por 15 días._`;
 
-    // Abrir WhatsApp
     const url = `https://wa.me/${telefono}?text=${mensaje}`;
     window.open(url, '_blank');
 });
+</script>
 
 <script>
+// --- REGISTRO DE SERVICE WORKER PARA PWA ---
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./service-worker.js")
     .then(() => console.log("PWA activada 🚀"))
