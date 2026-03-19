@@ -524,77 +524,80 @@
         giftTotalDisplay.textContent = formatter.format(totalGiftValue);
         giftMaxDisplay.textContent = formatter.format(total * 0.10);
     }
-    document.addEventListener('DOMContentLoaded', () => {
-        populateCategoryFilter();
-        renderProductList();
-        searchInput.addEventListener('input', () => renderProductList(searchInput.value, categoryFilter.value));
-        categoryFilter.addEventListener('change', () => renderProductList(searchInput.value, categoryFilter.value));
-        discountPercentageInput.addEventListener('input', calculateQuote);
-        interestRateInput.addEventListener('input', calculateQuote);
-        initialPaymentInput.addEventListener('input', calculateQuote);
-        customTermInput.addEventListener('input', calculateQuote);
-        document.querySelectorAll('.term-radio').forEach(radio => radio.addEventListener('change', () => {
-            customTermInput.value = '';
+   <script>
+        // --- INICIALIZACIÓN ---
+        document.addEventListener('DOMContentLoaded', () => {
+            populateCategoryFilter();
+            renderProductList();
+            searchInput.addEventListener('input', () => renderProductList(searchInput.value, categoryFilter.value));
+            categoryFilter.addEventListener('change', () => renderProductList(searchInput.value, categoryFilter.value));
+            discountPercentageInput.addEventListener('input', calculateQuote);
+            interestRateInput.addEventListener('input', calculateQuote);
+            initialPaymentInput.addEventListener('input', calculateQuote);
+            customTermInput.addEventListener('input', calculateQuote);
+            
+            document.querySelectorAll('.preset-initial-btn').forEach(btn => {
+                btn.addEventListener('click', () => handleInitialPreset(parseInt(btn.dataset.percent)));
+            });
+            
+            clearQuoteButton.addEventListener('click', clearQuote);
             calculateQuote();
-        }));
-        document.querySelectorAll('.preset-initial-btn').forEach(btn => btn.addEventListener('click', () => handleInitialPreset(parseInt(btn.dataset.percent))));
-        clearQuoteButton.addEventListener('click', clearQuote);
-        calculateQuote();
-    });
-</script>
+        });
 
-// --- LÓGICA DE ENVÍO POR WHATSAPP ---
-<script>
-// --- LÓGICA DE ENVÍO POR WHATSAPP ---
-document.getElementById('send-whatsapp-button').addEventListener('click', () => {
-    const cliente = document.getElementById('client-name').value || "Cliente";
-    const telefono = document.getElementById('client-whatsapp').value.replace(/\D/g, ''); 
-    
-    if (quote.items.length === 0) {
-        alert("Por favor, añade productos a la cotización primero.");
-        return;
-    }
+        // --- LÓGICA DE ENVÍO POR WHATSAPP ---
+        document.getElementById('send-whatsapp-button').addEventListener('click', () => {
+            const cliente = document.getElementById('client-name').value || "Cliente";
+            const telefono = document.getElementById('client-whatsapp').value.replace(/\D/g, ''); 
+            
+            if (quote.items.length === 0) {
+                alert("Por favor, añade productos a la cotización primero.");
+                return;
+            }
 
-    if (!telefono) {
-        alert("Por favor, introduce un número de WhatsApp.");
-        return;
-    }
+            if (!telefono) {
+                alert("Por favor, introduce un número de WhatsApp.");
+                return;
+            }
 
-    let mensaje = `*COTIZACIÓN ROYAL PRESTIGE - WEYMAX SRL*%0A`;
-    mensaje += `*Cliente:* ${cliente}%0A`;
-    mensaje += `--------------------------%0A`;
-    
-    quote.items.forEach(item => {
-        const precio = parseFloat(item.product.price);
-        mensaje += `• ${item.product.name} (x${item.quantity}) - ${formatter.format(precio * item.quantity)}%0A`;
-    });
+            let mensaje = `*COTIZACIÓN ROYAL PRESTIGE - WEYMAX SRL*%0A`;
+            mensaje += `*Cliente:* ${cliente}%0A`;
+            mensaje += `--------------------------%0A`;
+            
+            quote.items.forEach(item => {
+                const precio = parseFloat(item.product.price);
+                mensaje += `• ${item.product.name} (x${item.quantity}) - ${formatter.format(precio * item.quantity)}%0A`;
+            });
 
-    const total = parseFloat(totalDisplay.dataset.value);
-    const inicial = parseFloat(initialPaymentInput.value) || 0;
-    const financiado = parseFloat(amountFinancedDisplay.textContent.replace(/[^0-9.-]+/g,""));
-    const cuota = monthlyPaymentDisplay.textContent;
-    const plazo = (customTermInput.value && parseInt(customTermInput.value) > 0) ? customTermInput.value : quote.termMonths;
+            const total = parseFloat(totalDisplay.dataset.value);
+            const inicial = parseFloat(initialPaymentInput.value) || 0;
+            const financiado = parseFloat(amountFinancedDisplay.textContent.replace(/[^0-9.-]+/g,""));
+            const cuota = monthlyPaymentDisplay.textContent;
+            const plazo = (customTermInput.value && parseInt(customTermInput.value) > 0) ? customTermInput.value : quote.termMonths;
 
-    mensaje += `--------------------------%0A`;
-    mensaje += `*Total a Invertir:* ${formatter.format(total)}%0A`;
-    mensaje += `*Pago Inicial:* ${formatter.format(inicial)}%0A`;
-    mensaje += `*Monto Financiado:* ${formatter.format(financiado)}%0A`;
-    mensaje += `*Cuotas:* ${plazo} pagos de ${cuota}%0A%0A`;
-    mensaje += `_Precios sujetos a cambios. Válido por 15 días._`;
+            mensaje += `--------------------------%0A`;
+            mensaje += `*Total a Invertir:* ${formatter.format(total)}%0A`;
+            mensaje += `*Pago Inicial:* ${formatter.format(inicial)}%0A`;
+            mensaje += `*Monto Financiado:* ${formatter.format(financiado)}%0A`;
+            mensaje += `*Cuotas:* ${plazo} pagos de ${cuota}%0A%0A`;
+            mensaje += `_Precios sujetos a cambios. Válido por 15 días._`;
 
-    const url = `https://wa.me/${telefono}?text=${mensaje}`;
-    window.open(url, '_blank');
-});
-</script>
+            const url = `https://wa.me/${telefono}?text=${mensaje}`;
+            window.open(url, '_blank');
+        });
 
-<script>
-// --- REGISTRO DE SERVICE WORKER PARA PWA ---
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./service-worker.js")
-    .then(() => console.log("PWA activada 🚀"))
-    .catch(err => console.log("Error:", err));
-}
-</script>
+        // --- LÓGICA DE INSTALACIÓN (PWA) ---
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log("Listo para instalar 🚀");
+        });
 
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("./service-worker.js")
+                .then(() => console.log("Service Worker registrado"))
+                .catch(err => console.log("Error en SW:", err));
+        }
+    </script>
 </body>
 </html>
