@@ -421,6 +421,14 @@
     });
 
     renderProductList();
+// --- REGISTRO DE PWA ---
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('PWA lista para usar offline'))
+            .catch(err => console.log('Fallo al registrar PWA', err));
+    });
+}
 </script>
 </body>
 </html>
