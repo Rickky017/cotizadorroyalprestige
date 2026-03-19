@@ -6,6 +6,8 @@
  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador, Corporativo Silwey, </title>
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#059669">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -582,7 +584,7 @@ document.getElementById('send-whatsapp-button').addEventListener('click', () => 
     const url = `https://wa.me/${telefono}?text=${mensaje}`;
     window.open(url, '_blank');
 });
-</script>
+
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./service-worker.js")
@@ -590,5 +592,6 @@ if ("serviceWorker" in navigator) {
     .catch(err => console.log("Error:", err));
 }
 </script>
+
 </body>
 </html>
