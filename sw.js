@@ -1,21 +1,24 @@
-const CACHE_NAME = 'silwey-v1';
-const ASSETS = [
-  './',
-  './index.html',
-  'https://cdn.tailwindcss.com',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap'
+const CACHE_NAME = 'silwey-v2';
+const assets = [
+  "./",
+  "./index.html",
+  "https://cdn.tailwindcss.com"
 ];
 
-// Instalación y cacheo de archivos críticos
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+// Instalar el Service Worker y cachear archivos
+self.addEventListener("install", installEvent => {
+  installEvent.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(assets);
+    })
   );
 });
 
-// Estrategia: Primero Red, si falla, Caché
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+// Responder desde el caché si no hay internet
+self.addEventListener("fetch", fetchEvent => {
+  fetchEvent.respondWith(
+    caches.match(fetchEvent.request).then(res => {
+      return res || fetch(fetchEvent.request);
+    })
   );
 });
